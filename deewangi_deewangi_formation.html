@@ -5,45 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Deewangi Deewangi — Formation Diagram</title>
 <style>
-  :root {
-    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    --color-text-primary: #1a1a1a;
-    --color-text-secondary: #555;
-    --color-text-tertiary: #888;
-    --color-text-info: #185FA5;
-    --color-border-secondary: #d0d0d0;
-    --color-border-info: #378ADD;
-    --color-background-secondary: #f4f4f2;
-    --color-background-info: #e6f0fb;
-    --border-radius-md: 6px;
-  }
-  html, body { margin: 0; padding: 0; background: #fafaf7; color: var(--color-text-primary); font-family: var(--font-sans); }
+  html, body { margin: 0; padding: 0; background: #fafaf7; color: #1a1a1a;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
   body { padding: 24px; max-width: 900px; margin: 0 auto; }
-</style>
-<style>
-  .stage-wrap { padding: 1rem 0; font-family: var(--font-sans); }
+  .stage-wrap { padding: 1rem 0; }
   .controls { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
   .step-pills { display: flex; gap: 6px; flex: 1; flex-wrap: wrap; }
-  .pill { padding: 4px 12px; border-radius: 99px; font-size: 12px; border: 0.5px solid var(--color-border-secondary); background: transparent; color: var(--color-text-secondary); cursor: pointer; transition: all 0.2s; }
-  .pill.active { background: var(--color-background-info); color: var(--color-text-info); border-color: var(--color-border-info); }
-  .nav-btn { padding: 4px 14px; border-radius: var(--border-radius-md); font-size: 13px; border: 0.5px solid var(--color-border-secondary); background: transparent; color: var(--color-text-primary); cursor: pointer; }
-  .nav-btn:hover { background: var(--color-background-secondary); }
-  .stage-label { font-size: 11px; color: var(--color-text-tertiary); text-align: center; margin-top: 4px; letter-spacing: 0.05em; }
+  .pill { padding: 4px 12px; border-radius: 99px; font-size: 12px; border: 1px solid #d0d0d0;
+    background: transparent; color: #555; cursor: pointer; transition: all 0.2s; }
+  .pill.active { background: #e6f0fb; color: #185FA5; border-color: #378ADD; }
+  .nav-btn { padding: 4px 14px; border-radius: 6px; font-size: 13px; border: 1px solid #d0d0d0;
+    background: transparent; color: #1a1a1a; cursor: pointer; }
+  .nav-btn:hover { background: #f4f4f2; }
   .legend { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; justify-content: center; }
-  .leg-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--color-text-secondary); }
-  .step-desc { font-size: 13px; color: var(--color-text-secondary); text-align: center; margin-top: 8px; min-height: 20px; }
+  .leg-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #555; }
+  .step-desc { font-size: 13px; color: #555; text-align: center; margin-top: 8px; min-height: 20px; }
 </style>
 </head>
 <body>
 <div class="stage-wrap">
-  <h2 style="font-size:0;position:absolute;opacity:0;">Deewangi Deewangi formation diagram — animated performer positions across 5 stages</h2>
   <div class="controls">
     <div class="step-pills">
-      <button class="pill active" onclick="goTo(0)">Start</button>
-      <button class="pill" onclick="goTo(1)">Couples section</button>
-      <button class="pill" onclick="goTo(2)">Split</button>
-      <button class="pill" onclick="goTo(3)">Men's section</button>
-      <button class="pill" onclick="goTo(4)">Finale</button>
+      <button class="pill active" data-step="0" onclick="goTo(0)">Start</button>
+      <button class="pill" data-step="1" onclick="goTo(1)">Couples section</button>
+      <button class="pill" data-step="2" onclick="goTo(2)">Split</button>
+      <button class="pill" data-step="3" onclick="goTo(3)">Men's section</button>
+      <button class="pill" data-step="4" onclick="goTo(4)">Finale</button>
     </div>
     <button class="nav-btn" onclick="prev()">&#8592;</button>
     <button class="nav-btn" onclick="next()">&#8594;</button>
@@ -51,216 +38,209 @@
 
   <svg id="stage-svg" width="100%" viewBox="0 0 620 400" style="display:block;">
     <defs>
-      <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-        <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M1 1 L9 5 L1 9 Z" fill="#444"/>
       </marker>
     </defs>
-    <rect x="40" y="30" width="540" height="320" rx="10" fill="none" stroke="#d0d0d0" stroke-width="0.5"/>
-    <rect x="40" y="30" width="540" height="28" rx="0" fill="#f4f4f2" stroke="none"/>
-    <rect x="40" y="30" width="540" height="28" rx="10" fill="#f4f4f2" stroke="none"/>
-    <rect x="40" y="44" width="540" height="14" fill="#f4f4f2" stroke="none"/>
+    <rect x="40" y="30" width="540" height="320" rx="10" fill="none" stroke="#c8c8c8" stroke-width="1"/>
+    <rect x="40" y="30" width="540" height="28" rx="10" fill="#f0efec" stroke="none"/>
+    <rect x="40" y="44" width="540" height="14" fill="#f0efec" stroke="none"/>
     <text x="310" y="48" text-anchor="middle" font-size="11" fill="#888" font-family="sans-serif" letter-spacing="0.08em">STAGE FRONT — AUDIENCE</text>
     <text x="310" y="338" text-anchor="middle" font-size="11" fill="#888" font-family="sans-serif" letter-spacing="0.08em">STAGE BACK</text>
+    <g id="trails"></g>
     <g id="performers"></g>
-    <g id="trails" opacity="0.25"></g>
   </svg>
 
   <p class="step-desc" id="step-desc">Starting positions — all 16 performers at their opening marks.</p>
 
   <div class="legend">
-    <div class="leg-item"><svg width="14" height="14"><circle cx="7" cy="7" r="6" fill="#D4537E" stroke="#993556" stroke-width="0.5"/></svg> Women (W1–W4)</div>
-    <div class="leg-item"><svg width="14" height="14"><circle cx="7" cy="7" r="6" fill="#378ADD" stroke="#185FA5" stroke-width="0.5"/></svg> Men couple (MC1–MC4)</div>
-    <div class="leg-item"><svg width="14" height="14"><circle cx="7" cy="7" r="6" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.5"/></svg> Men single left (MS1–MS4)</div>
-    <div class="leg-item"><svg width="14" height="14"><circle cx="7" cy="7" r="6" fill="#888780" stroke="#5F5E5A" stroke-width="0.5"/></svg> Men back (MB1–MB4)</div>
+    <div class="leg-item"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="#D4537E" stroke="#993556" stroke-width="0.5"/></svg> Women (W1–W4)</div>
+    <div class="leg-item"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="#378ADD" stroke="#185FA5" stroke-width="0.5"/></svg> Men couple (MC1–MC4)</div>
+    <div class="leg-item"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.5"/></svg> Men single left (MS1–MS4)</div>
+    <div class="leg-item"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="#888780" stroke="#5F5E5A" stroke-width="0.5"/></svg> Men back (MB1–MB4)</div>
   </div>
 </div>
 
 <script>
-const W = 620, stageX = 40, stageY = 30, stageW = 540, stageH = 320;
-const cx = stageX + stageW/2;
-const top = stageY + 40, bot = stageY + stageH - 30;
-const qH = (bot - top) / 4;
+(function(){
+  var stageX = 40, stageY = 30, stageW = 540, stageH = 320;
+  var cx = stageX + stageW/2;
+  var topY = stageY + 40, botY = stageY + stageH - 30;
+  var qH = (botY - topY) / 4;
 
-const colors = {
-  W:  { fill:'#D4537E', stroke:'#993556', label:'W' },
-  MC: { fill:'#378ADD', stroke:'#185FA5', label:'MC' },
-  MS: { fill:'#1D9E75', stroke:'#0F6E56', label:'MS' },
-  MB: { fill:'#888780', stroke:'#5F5E5A', label:'MB' }
-};
+  var colors = {
+    W:  { fill:'#D4537E', stroke:'#993556' },
+    MC: { fill:'#378ADD', stroke:'#185FA5' },
+    MS: { fill:'#1D9E75', stroke:'#0F6E56' },
+    MB: { fill:'#888780', stroke:'#5F5E5A' }
+  };
 
-const steps = [
-  {
-    desc: 'Starting positions — all 16 performers at their opening marks.',
-    positions: [
-      {id:'W1', g:'W', x:cx-45, y:top+qH*1.4},
-      {id:'W2', g:'W', x:cx-15, y:top+qH*1.4},
-      {id:'W3', g:'W', x:cx+15, y:top+qH*1.4},
-      {id:'W4', g:'W', x:cx+45, y:top+qH*1.4},
-      {id:'MB1',g:'MB',x:cx-45, y:top+qH*0.5},
-      {id:'MB2',g:'MB',x:cx-15, y:top+qH*0.5},
-      {id:'MB3',g:'MB',x:cx+15, y:top+qH*0.5},
-      {id:'MB4',g:'MB',x:cx+45, y:top+qH*0.5},
-      {id:'MC1',g:'MC',x:stageX+stageW-60, y:top+qH*1.0},
-      {id:'MC2',g:'MC',x:stageX+stageW-60, y:top+qH*1.6},
-      {id:'MC3',g:'MC',x:stageX+stageW-60, y:top+qH*2.2},
-      {id:'MC4',g:'MC',x:stageX+stageW-60, y:top+qH*2.8},
-      {id:'MS1',g:'MS',x:stageX+60, y:top+qH*1.0},
-      {id:'MS2',g:'MS',x:stageX+60, y:top+qH*1.6},
-      {id:'MS3',g:'MS',x:stageX+60, y:top+qH*2.2},
-      {id:'MS4',g:'MS',x:stageX+60, y:top+qH*2.8},
-    ]
-  },
-  {
-    desc: 'Couples section — women move downstage, MC joins them center for partner dancing.',
-    positions: [
-      {id:'W1', g:'W', x:cx-60, y:bot-20},
-      {id:'W2', g:'W', x:cx-20, y:bot-20},
-      {id:'W3', g:'W', x:cx+20, y:bot-20},
-      {id:'W4', g:'W', x:cx+60, y:bot-20},
-      {id:'MB1',g:'MB',x:cx-45, y:top+qH*0.5},
-      {id:'MB2',g:'MB',x:cx-15, y:top+qH*0.5},
-      {id:'MB3',g:'MB',x:cx+15, y:top+qH*0.5},
-      {id:'MB4',g:'MB',x:cx+45, y:top+qH*0.5},
-      {id:'MC1',g:'MC',x:cx-60, y:bot-55},
-      {id:'MC2',g:'MC',x:cx-20, y:bot-55},
-      {id:'MC3',g:'MC',x:cx+20, y:bot-55},
-      {id:'MC4',g:'MC',x:cx+60, y:bot-55},
-      {id:'MS1',g:'MS',x:stageX+60, y:top+qH*1.0},
-      {id:'MS2',g:'MS',x:stageX+60, y:top+qH*1.6},
-      {id:'MS3',g:'MS',x:stageX+60, y:top+qH*2.2},
-      {id:'MS4',g:'MS',x:stageX+60, y:top+qH*2.8},
-    ]
-  },
-  {
-    desc: 'Split — 2 couples retreat left-back, 2 couples retreat right-back, clearing center stage.',
-    positions: [
-      {id:'W1', g:'W', x:stageX+80, y:top+qH*2.0},
-      {id:'W2', g:'W', x:stageX+80, y:top+qH*2.8},
-      {id:'W3', g:'W', x:stageX+stageW-80, y:top+qH*2.0},
-      {id:'W4', g:'W', x:stageX+stageW-80, y:top+qH*2.8},
-      {id:'MB1',g:'MB',x:cx-45, y:top+qH*0.5},
-      {id:'MB2',g:'MB',x:cx-15, y:top+qH*0.5},
-      {id:'MB3',g:'MB',x:cx+15, y:top+qH*0.5},
-      {id:'MB4',g:'MB',x:cx+45, y:top+qH*0.5},
-      {id:'MC1',g:'MC',x:stageX+120, y:top+qH*1.4},
-      {id:'MC2',g:'MC',x:stageX+120, y:top+qH*2.2},
-      {id:'MC3',g:'MC',x:stageX+stageW-120, y:top+qH*1.4},
-      {id:'MC4',g:'MC',x:stageX+stageW-120, y:top+qH*2.2},
-      {id:'MS1',g:'MS',x:stageX+60, y:top+qH*1.0},
-      {id:'MS2',g:'MS',x:stageX+60, y:top+qH*1.6},
-      {id:'MS3',g:'MS',x:stageX+60, y:top+qH*2.2},
-      {id:'MS4',g:'MS',x:stageX+60, y:top+qH*2.8},
-    ]
-  },
-  {
-    desc: "Men's section — MB comes downstage and pairs with MS center-left. Couples hold on the sides.",
-    positions: [
-      {id:'W1', g:'W', x:stageX+80, y:top+qH*2.0},
-      {id:'W2', g:'W', x:stageX+80, y:top+qH*2.8},
-      {id:'W3', g:'W', x:stageX+stageW-80, y:top+qH*2.0},
-      {id:'W4', g:'W', x:stageX+stageW-80, y:top+qH*2.8},
-      {id:'MB1',g:'MB',x:cx-80, y:top+qH*1.4},
-      {id:'MB2',g:'MB',x:cx-40, y:top+qH*1.4},
-      {id:'MB3',g:'MB',x:cx-80, y:top+qH*2.2},
-      {id:'MB4',g:'MB',x:cx-40, y:top+qH*2.2},
-      {id:'MC1',g:'MC',x:stageX+120, y:top+qH*1.4},
-      {id:'MC2',g:'MC',x:stageX+120, y:top+qH*2.2},
-      {id:'MC3',g:'MC',x:stageX+stageW-120, y:top+qH*1.4},
-      {id:'MC4',g:'MC',x:stageX+stageW-120, y:top+qH*2.2},
-      {id:'MS1',g:'MS',x:cx-80, y:top+qH*0.6},
-      {id:'MS2',g:'MS',x:cx-40, y:top+qH*0.6},
-      {id:'MS3',g:'MS',x:cx-80, y:top+qH*3.0},
-      {id:'MS4',g:'MS',x:cx-40, y:top+qH*3.0},
-    ]
-  },
-  {
-    desc: 'Finale — all 16 join into two rows of 8 across the full stage.',
-    positions: [
-      {id:'W1', g:'W', x:cx-210, y:bot-20},
-      {id:'W2', g:'W', x:cx-150, y:bot-20},
-      {id:'W3', g:'W', x:cx-90,  y:bot-20},
-      {id:'W4', g:'W', x:cx-30,  y:bot-20},
-      {id:'MB1',g:'MB',x:cx+30,  y:bot-20},
-      {id:'MB2',g:'MB',x:cx+90,  y:bot-20},
-      {id:'MB3',g:'MB',x:cx+150, y:bot-20},
-      {id:'MB4',g:'MB',x:cx+210, y:bot-20},
-      {id:'MC1',g:'MC',x:cx-210, y:bot-65},
-      {id:'MC2',g:'MC',x:cx-150, y:bot-65},
-      {id:'MC3',g:'MC',x:cx-90,  y:bot-65},
-      {id:'MC4',g:'MC',x:cx-30,  y:bot-65},
-      {id:'MS1',g:'MS',x:cx+30,  y:bot-65},
-      {id:'MS2',g:'MS',x:cx+90,  y:bot-65},
-      {id:'MS3',g:'MS',x:cx+150, y:bot-65},
-      {id:'MS4',g:'MS',x:cx+210, y:bot-65},
-    ]
+  var steps = [
+    { desc: 'Starting positions — all 16 performers at their opening marks.',
+      positions: [
+        {id:'W1',g:'W',x:cx-45,y:topY+qH*1.4},{id:'W2',g:'W',x:cx-15,y:topY+qH*1.4},
+        {id:'W3',g:'W',x:cx+15,y:topY+qH*1.4},{id:'W4',g:'W',x:cx+45,y:topY+qH*1.4},
+        {id:'MB1',g:'MB',x:cx-45,y:topY+qH*0.5},{id:'MB2',g:'MB',x:cx-15,y:topY+qH*0.5},
+        {id:'MB3',g:'MB',x:cx+15,y:topY+qH*0.5},{id:'MB4',g:'MB',x:cx+45,y:topY+qH*0.5},
+        {id:'MC1',g:'MC',x:stageX+stageW-60,y:topY+qH*1.0},{id:'MC2',g:'MC',x:stageX+stageW-60,y:topY+qH*1.6},
+        {id:'MC3',g:'MC',x:stageX+stageW-60,y:topY+qH*2.2},{id:'MC4',g:'MC',x:stageX+stageW-60,y:topY+qH*2.8},
+        {id:'MS1',g:'MS',x:stageX+60,y:topY+qH*1.0},{id:'MS2',g:'MS',x:stageX+60,y:topY+qH*1.6},
+        {id:'MS3',g:'MS',x:stageX+60,y:topY+qH*2.2},{id:'MS4',g:'MS',x:stageX+60,y:topY+qH*2.8}
+      ] },
+    { desc: 'Couples section — women move downstage, MC joins them center for partner dancing.',
+      positions: [
+        {id:'W1',g:'W',x:cx-60,y:botY-20},{id:'W2',g:'W',x:cx-20,y:botY-20},
+        {id:'W3',g:'W',x:cx+20,y:botY-20},{id:'W4',g:'W',x:cx+60,y:botY-20},
+        {id:'MB1',g:'MB',x:cx-45,y:topY+qH*0.5},{id:'MB2',g:'MB',x:cx-15,y:topY+qH*0.5},
+        {id:'MB3',g:'MB',x:cx+15,y:topY+qH*0.5},{id:'MB4',g:'MB',x:cx+45,y:topY+qH*0.5},
+        {id:'MC1',g:'MC',x:cx-60,y:botY-55},{id:'MC2',g:'MC',x:cx-20,y:botY-55},
+        {id:'MC3',g:'MC',x:cx+20,y:botY-55},{id:'MC4',g:'MC',x:cx+60,y:botY-55},
+        {id:'MS1',g:'MS',x:stageX+60,y:topY+qH*1.0},{id:'MS2',g:'MS',x:stageX+60,y:topY+qH*1.6},
+        {id:'MS3',g:'MS',x:stageX+60,y:topY+qH*2.2},{id:'MS4',g:'MS',x:stageX+60,y:topY+qH*2.8}
+      ] },
+    { desc: 'Split — 2 couples retreat left-back, 2 couples retreat right-back, clearing center stage.',
+      positions: [
+        {id:'W1',g:'W',x:stageX+80,y:topY+qH*2.0},{id:'W2',g:'W',x:stageX+80,y:topY+qH*2.8},
+        {id:'W3',g:'W',x:stageX+stageW-80,y:topY+qH*2.0},{id:'W4',g:'W',x:stageX+stageW-80,y:topY+qH*2.8},
+        {id:'MB1',g:'MB',x:cx-45,y:topY+qH*0.5},{id:'MB2',g:'MB',x:cx-15,y:topY+qH*0.5},
+        {id:'MB3',g:'MB',x:cx+15,y:topY+qH*0.5},{id:'MB4',g:'MB',x:cx+45,y:topY+qH*0.5},
+        {id:'MC1',g:'MC',x:stageX+120,y:topY+qH*1.4},{id:'MC2',g:'MC',x:stageX+120,y:topY+qH*2.2},
+        {id:'MC3',g:'MC',x:stageX+stageW-120,y:topY+qH*1.4},{id:'MC4',g:'MC',x:stageX+stageW-120,y:topY+qH*2.2},
+        {id:'MS1',g:'MS',x:stageX+60,y:topY+qH*1.0},{id:'MS2',g:'MS',x:stageX+60,y:topY+qH*1.6},
+        {id:'MS3',g:'MS',x:stageX+60,y:topY+qH*2.2},{id:'MS4',g:'MS',x:stageX+60,y:topY+qH*2.8}
+      ] },
+    { desc: "Men's section — MB comes downstage and pairs with MS center-left. Couples hold on the sides.",
+      positions: [
+        {id:'W1',g:'W',x:stageX+80,y:topY+qH*2.0},{id:'W2',g:'W',x:stageX+80,y:topY+qH*2.8},
+        {id:'W3',g:'W',x:stageX+stageW-80,y:topY+qH*2.0},{id:'W4',g:'W',x:stageX+stageW-80,y:topY+qH*2.8},
+        {id:'MB1',g:'MB',x:cx-80,y:topY+qH*1.4},{id:'MB2',g:'MB',x:cx-40,y:topY+qH*1.4},
+        {id:'MB3',g:'MB',x:cx-80,y:topY+qH*2.2},{id:'MB4',g:'MB',x:cx-40,y:topY+qH*2.2},
+        {id:'MC1',g:'MC',x:stageX+120,y:topY+qH*1.4},{id:'MC2',g:'MC',x:stageX+120,y:topY+qH*2.2},
+        {id:'MC3',g:'MC',x:stageX+stageW-120,y:topY+qH*1.4},{id:'MC4',g:'MC',x:stageX+stageW-120,y:topY+qH*2.2},
+        {id:'MS1',g:'MS',x:cx-80,y:topY+qH*0.6},{id:'MS2',g:'MS',x:cx-40,y:topY+qH*0.6},
+        {id:'MS3',g:'MS',x:cx-80,y:topY+qH*3.0},{id:'MS4',g:'MS',x:cx-40,y:topY+qH*3.0}
+      ] },
+    { desc: 'Finale — all 16 join into two rows of 8 across the full stage.',
+      positions: [
+        {id:'W1',g:'W',x:cx-210,y:botY-20},{id:'W2',g:'W',x:cx-150,y:botY-20},
+        {id:'W3',g:'W',x:cx-90,y:botY-20},{id:'W4',g:'W',x:cx-30,y:botY-20},
+        {id:'MB1',g:'MB',x:cx+30,y:botY-20},{id:'MB2',g:'MB',x:cx+90,y:botY-20},
+        {id:'MB3',g:'MB',x:cx+150,y:botY-20},{id:'MB4',g:'MB',x:cx+210,y:botY-20},
+        {id:'MC1',g:'MC',x:cx-210,y:botY-65},{id:'MC2',g:'MC',x:cx-150,y:botY-65},
+        {id:'MC3',g:'MC',x:cx-90,y:botY-65},{id:'MC4',g:'MC',x:cx-30,y:botY-65},
+        {id:'MS1',g:'MS',x:cx+30,y:botY-65},{id:'MS2',g:'MS',x:cx+90,y:botY-65},
+        {id:'MS3',g:'MS',x:cx+150,y:botY-65},{id:'MS4',g:'MS',x:cx+210,y:botY-65}
+      ] }
+  ];
+
+  var SVG_NS = 'http://www.w3.org/2000/svg';
+  var current = 0;
+  var dotEls = {};
+  var animReqs = {};
+
+  function buildDots() {
+    var g = document.getElementById('performers');
+    g.innerHTML = '';
+    dotEls = {};
+    steps[0].positions.forEach(function(p){
+      var grp = document.createElementNS(SVG_NS,'g');
+      var c = colors[p.g];
+      var circle = document.createElementNS(SVG_NS,'circle');
+      circle.setAttribute('r','14');
+      circle.setAttribute('fill', c.fill);
+      circle.setAttribute('stroke', c.stroke);
+      circle.setAttribute('stroke-width','1.2');
+      var txt = document.createElementNS(SVG_NS,'text');
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('dominant-baseline','central');
+      txt.setAttribute('font-size','8');
+      txt.setAttribute('font-family','sans-serif');
+      txt.setAttribute('fill','#fff');
+      txt.setAttribute('font-weight','600');
+      txt.textContent = p.id;
+      grp.appendChild(circle);
+      grp.appendChild(txt);
+      grp.setAttribute('transform','translate('+p.x+','+p.y+')');
+      g.appendChild(grp);
+      dotEls[p.id] = { el: grp, x: p.x, y: p.y };
+    });
   }
-];
 
-let current = 0;
-let animReqs = {};
-let dotEls = {};
+  function drawTrails(fromStep, toStep) {
+    var trails = document.getElementById('trails');
+    trails.innerHTML = '';
+    if (fromStep === toStep) return;
+    var fromPos = {}, toPos = {};
+    steps[fromStep].positions.forEach(function(p){ fromPos[p.id] = p; });
+    steps[toStep].positions.forEach(function(p){ toPos[p.id] = p; });
+    Object.keys(toPos).forEach(function(id){
+      var a = fromPos[id], b = toPos[id];
+      if (!a || !b) return;
+      var dx = b.x - a.x, dy = b.y - a.y;
+      if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return;
+      var len = Math.sqrt(dx*dx + dy*dy);
+      // shorten so arrow head doesn't overlap dot
+      var pad = 16;
+      var ux = dx/len, uy = dy/len;
+      var x1 = a.x + ux*pad, y1 = a.y + uy*pad;
+      var x2 = b.x - ux*pad, y2 = b.y - uy*pad;
+      // curved path for aesthetics
+      var mx = (x1+x2)/2, my = (y1+y2)/2;
+      var nx = -uy, ny = ux; // perpendicular
+      var bow = Math.min(30, len*0.15);
+      var path = document.createElementNS(SVG_NS,'path');
+      path.setAttribute('d','M '+x1+' '+y1+' Q '+(mx+nx*bow)+' '+(my+ny*bow)+' '+x2+' '+y2);
+      path.setAttribute('fill','none');
+      path.setAttribute('stroke', colors[b.g].stroke);
+      path.setAttribute('stroke-width','1.5');
+      path.setAttribute('stroke-opacity','0.55');
+      path.setAttribute('stroke-dasharray','4 3');
+      path.setAttribute('marker-end','url(#arrow)');
+      trails.appendChild(path);
+    });
+  }
 
-function init() {
-  const g = document.getElementById('performers');
-  g.innerHTML = '';
-  dotEls = {};
-  steps[0].positions.forEach(p => {
-    const grp = document.createElementNS('http://www.w3.org/2000/svg','g');
-    const c = colors[p.g];
-    const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
-    circle.setAttribute('r','14');
-    circle.setAttribute('fill', c.fill);
-    circle.setAttribute('stroke', c.stroke);
-    circle.setAttribute('stroke-width','1');
-    const txt = document.createElementNS('http://www.w3.org/2000/svg','text');
-    txt.setAttribute('text-anchor','middle');
-    txt.setAttribute('dominant-baseline','central');
-    txt.setAttribute('font-size','8');
-    txt.setAttribute('font-family','sans-serif');
-    txt.setAttribute('fill','#fff');
-    txt.setAttribute('font-weight','500');
-    txt.textContent = p.id;
-    grp.appendChild(circle);
-    grp.appendChild(txt);
-    grp.setAttribute('transform',`translate(${p.x},${p.y})`);
-    g.appendChild(grp);
-    dotEls[p.id] = {el: grp, x: p.x, y: p.y};
-  });
-}
-
-function animateTo(stepIdx) {
-  const targets = {};
-  steps[stepIdx].positions.forEach(p => { targets[p.id] = {x:p.x, y:p.y}; });
-  Object.keys(dotEls).forEach(id => {
-    if (animReqs[id]) cancelAnimationFrame(animReqs[id]);
-    const from = {x: dotEls[id].x, y: dotEls[id].y};
-    const to = targets[id];
-    if (!to) return;
-    const start = performance.now();
-    const dur = 600;
-    function tick(now) {
-      const t = Math.min((now - start)/dur, 1);
-      const ease = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
-      const nx = from.x + (to.x - from.x)*ease;
-      const ny = from.y + (to.y - from.y)*ease;
-      dotEls[id].el.setAttribute('transform',`translate(${nx},${ny})`);
-      if (t < 1) { animReqs[id] = requestAnimationFrame(tick); }
-      else { dotEls[id].x = to.x; dotEls[id].y = to.y; }
+  function animateTo(stepIdx) {
+    var targets = {};
+    steps[stepIdx].positions.forEach(function(p){ targets[p.id] = {x:p.x, y:p.y}; });
+    Object.keys(dotEls).forEach(function(id){
+      if (animReqs[id]) cancelAnimationFrame(animReqs[id]);
+      var from = { x: dotEls[id].x, y: dotEls[id].y };
+      var to = targets[id];
+      if (!to) return;
+      var start = performance.now();
+      var dur = 650;
+      (function run(id, from, to){
+        function tick(now){
+          var t = Math.min((now - start)/dur, 1);
+          var ease = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+          var nx = from.x + (to.x - from.x)*ease;
+          var ny = from.y + (to.y - from.y)*ease;
+          dotEls[id].el.setAttribute('transform','translate('+nx+','+ny+')');
+          if (t < 1) { animReqs[id] = requestAnimationFrame(tick); }
+          else { dotEls[id].x = to.x; dotEls[id].y = to.y; }
+        }
+        animReqs[id] = requestAnimationFrame(tick);
+      })(id, from, to);
+    });
+    document.getElementById('step-desc').textContent = steps[stepIdx].desc;
+    var pills = document.querySelectorAll('.pill');
+    for (var i=0;i<pills.length;i++) {
+      if (i===stepIdx) pills[i].classList.add('active'); else pills[i].classList.remove('active');
     }
-    animReqs[id] = requestAnimationFrame(tick);
-  });
-  document.getElementById('step-desc').textContent = steps[stepIdx].desc;
-  document.querySelectorAll('.pill').forEach((p,i)=>p.classList.toggle('active', i===stepIdx));
-}
+  }
 
-function goTo(i) {
-  current = i;
-  animateTo(i);
-}
-function next() { if(current < steps.length-1) goTo(current+1); }
-function prev() { if(current > 0) goTo(current-1); }
+  window.goTo = function(i){
+    if (i < 0 || i >= steps.length) return;
+    drawTrails(current, i);
+    current = i;
+    animateTo(i);
+  };
+  window.next = function(){ if (current < steps.length-1) window.goTo(current+1); };
+  window.prev = function(){ if (current > 0) window.goTo(current-1); };
 
-init();
+  buildDots();
+})();
 </script>
 </body>
 </html>
