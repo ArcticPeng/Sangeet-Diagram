@@ -8,29 +8,34 @@
   html, body { margin: 0; padding: 0; background: #fafaf7; color: #1a1a1a;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
   body { padding: 24px; max-width: 900px; margin: 0 auto; }
-  .stage-wrap { padding: 1rem 0; }
+  h1 { font-size: 18px; margin: 0 0 4px 0; font-weight: 600; }
+  .subtitle { font-size: 13px; color: #666; margin: 0 0 16px 0; }
+  .stage-wrap { padding: 0.5rem 0; }
   .controls { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
   .step-pills { display: flex; gap: 6px; flex: 1; flex-wrap: wrap; }
-  .pill { padding: 4px 12px; border-radius: 99px; font-size: 12px; border: 1px solid #d0d0d0;
-    background: transparent; color: #555; cursor: pointer; transition: all 0.2s; }
+  .pill { padding: 5px 14px; border-radius: 99px; font-size: 12px; border: 1px solid #d0d0d0;
+    background: #fff; color: #555; cursor: pointer; transition: all 0.2s; }
   .pill.active { background: #e6f0fb; color: #185FA5; border-color: #378ADD; }
-  .nav-btn { padding: 4px 14px; border-radius: 6px; font-size: 13px; border: 1px solid #d0d0d0;
-    background: transparent; color: #1a1a1a; cursor: pointer; }
+  .nav-btn { padding: 5px 14px; border-radius: 6px; font-size: 14px; border: 1px solid #d0d0d0;
+    background: #fff; color: #1a1a1a; cursor: pointer; }
   .nav-btn:hover { background: #f4f4f2; }
-  .legend { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; justify-content: center; }
+  .legend { display: flex; gap: 18px; margin-top: 12px; flex-wrap: wrap; justify-content: center; }
   .leg-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #555; }
-  .step-desc { font-size: 13px; color: #555; text-align: center; margin-top: 8px; min-height: 20px; }
+  .step-desc { font-size: 13px; color: #444; text-align: center; margin-top: 10px; min-height: 20px; line-height: 1.4; }
 </style>
 </head>
 <body>
+<h1>Deewangi Deewangi — Formation Diagram</h1>
+<p class="subtitle">Step through each section using the pills or arrow buttons. Dots animate between formations; dashed arrows show each performer's path.</p>
+
 <div class="stage-wrap">
   <div class="controls">
     <div class="step-pills">
-      <button class="pill active" data-step="0" onclick="goTo(0)">Start</button>
-      <button class="pill" data-step="1" onclick="goTo(1)">Couples section</button>
-      <button class="pill" data-step="2" onclick="goTo(2)">Split</button>
-      <button class="pill" data-step="3" onclick="goTo(3)">Men's section</button>
-      <button class="pill" data-step="4" onclick="goTo(4)">Finale</button>
+      <button class="pill active" onclick="goTo(0)">Start</button>
+      <button class="pill" onclick="goTo(1)">Couples section</button>
+      <button class="pill" onclick="goTo(2)">Split</button>
+      <button class="pill" onclick="goTo(3)">Men's section</button>
+      <button class="pill" onclick="goTo(4)">Finale</button>
     </div>
     <button class="nav-btn" onclick="prev()">&#8592;</button>
     <button class="nav-btn" onclick="next()">&#8594;</button>
@@ -42,11 +47,16 @@
         <path d="M1 1 L9 5 L1 9 Z" fill="#444"/>
       </marker>
     </defs>
-    <rect x="40" y="30" width="540" height="320" rx="10" fill="none" stroke="#c8c8c8" stroke-width="1"/>
-    <rect x="40" y="30" width="540" height="28" rx="10" fill="#f0efec" stroke="none"/>
-    <rect x="40" y="44" width="540" height="14" fill="#f0efec" stroke="none"/>
-    <text x="310" y="48" text-anchor="middle" font-size="11" fill="#888" font-family="sans-serif" letter-spacing="0.08em">STAGE FRONT — AUDIENCE</text>
-    <text x="310" y="338" text-anchor="middle" font-size="11" fill="#888" font-family="sans-serif" letter-spacing="0.08em">STAGE BACK</text>
+    <!-- Stage rectangle: back at top, front at bottom -->
+    <rect x="40" y="30" width="540" height="320" rx="10" fill="#ffffff" stroke="#c8c8c8" stroke-width="1"/>
+    <!-- STAGE BACK band (top) -->
+    <rect x="40" y="30" width="540" height="24" rx="10" fill="#f0efec" stroke="none"/>
+    <rect x="40" y="42" width="540" height="12" fill="#f0efec" stroke="none"/>
+    <text x="310" y="46" text-anchor="middle" font-size="10" fill="#888" font-family="sans-serif" letter-spacing="0.12em">STAGE BACK</text>
+    <!-- STAGE FRONT band (bottom) -->
+    <rect x="40" y="326" width="540" height="24" rx="10" fill="#f0efec" stroke="none"/>
+    <rect x="40" y="326" width="540" height="12" fill="#f0efec" stroke="none"/>
+    <text x="310" y="343" text-anchor="middle" font-size="10" fill="#888" font-family="sans-serif" letter-spacing="0.12em">STAGE FRONT — AUDIENCE</text>
     <g id="trails"></g>
     <g id="performers"></g>
   </svg>
@@ -54,83 +64,154 @@
   <p class="step-desc" id="step-desc">Starting positions — all 16 performers at their opening marks.</p>
 
   <div class="legend">
-    <div class="leg-item"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="#D4537E" stroke="#993556" stroke-width="0.5"/></svg> Women (W1–W4)</div>
-    <div class="leg-item"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="#378ADD" stroke="#185FA5" stroke-width="0.5"/></svg> Men couple (MC1–MC4)</div>
-    <div class="leg-item"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.5"/></svg> Men single left (MS1–MS4)</div>
-    <div class="leg-item"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="#888780" stroke="#5F5E5A" stroke-width="0.5"/></svg> Men back (MB1–MB4)</div>
+    <div class="leg-item"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="#D4537E" stroke="#993556" stroke-width="0.5"/></svg> Women in Couple (WC1–WC4)</div>
+    <div class="leg-item"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="#378ADD" stroke="#185FA5" stroke-width="0.5"/></svg> Men in Couple (MC1–MC4)</div>
+    <div class="leg-item"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.5"/></svg> Men Left (ML1–ML4)</div>
+    <div class="leg-item"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="#888780" stroke="#5F5E5A" stroke-width="0.5"/></svg> Men Back (MB1–MB4)</div>
   </div>
 </div>
 
 <script>
 (function(){
   var stageX = 40, stageY = 30, stageW = 540, stageH = 320;
-  var cx = stageX + stageW/2;
-  var topY = stageY + 40, botY = stageY + stageH - 30;
-  var qH = (botY - topY) / 4;
+  var cx = stageX + stageW/2;        // 310
+  var backY = stageY + 75;           // 105  — upstage row (near top/back)
+  var frontY = stageY + stageH - 25; // 325  — downstage row (near bottom/front)
 
   var colors = {
-    W:  { fill:'#D4537E', stroke:'#993556' },
+    WC: { fill:'#D4537E', stroke:'#993556' },
     MC: { fill:'#378ADD', stroke:'#185FA5' },
-    MS: { fill:'#1D9E75', stroke:'#0F6E56' },
+    ML: { fill:'#1D9E75', stroke:'#0F6E56' },
     MB: { fill:'#888780', stroke:'#5F5E5A' }
   };
 
+  // Helper: build an alternating 8-dot front row order WC1 MC1 WC2 MC2 WC3 MC3 WC4 MC4
+  // across the stage width.
   var steps = [
-    { desc: 'Starting positions — all 16 performers at their opening marks.',
+    { // STEP 0: Start
+      desc: 'Starting positions — WC center-back, MB top-right, MC stage right, ML stage left.',
       positions: [
-        {id:'W1',g:'W',x:cx-45,y:topY+qH*1.4},{id:'W2',g:'W',x:cx-15,y:topY+qH*1.4},
-        {id:'W3',g:'W',x:cx+15,y:topY+qH*1.4},{id:'W4',g:'W',x:cx+45,y:topY+qH*1.4},
-        {id:'MB1',g:'MB',x:cx-45,y:topY+qH*0.5},{id:'MB2',g:'MB',x:cx-15,y:topY+qH*0.5},
-        {id:'MB3',g:'MB',x:cx+15,y:topY+qH*0.5},{id:'MB4',g:'MB',x:cx+45,y:topY+qH*0.5},
-        {id:'MC1',g:'MC',x:stageX+stageW-60,y:topY+qH*1.0},{id:'MC2',g:'MC',x:stageX+stageW-60,y:topY+qH*1.6},
-        {id:'MC3',g:'MC',x:stageX+stageW-60,y:topY+qH*2.2},{id:'MC4',g:'MC',x:stageX+stageW-60,y:topY+qH*2.8},
-        {id:'MS1',g:'MS',x:stageX+60,y:topY+qH*1.0},{id:'MS2',g:'MS',x:stageX+60,y:topY+qH*1.6},
-        {id:'MS3',g:'MS',x:stageX+60,y:topY+qH*2.2},{id:'MS4',g:'MS',x:stageX+60,y:topY+qH*2.8}
-      ] },
-    { desc: 'Couples section — women move downstage, MC joins them center for partner dancing.',
+        // Women in Couple — center back, single row
+        {id:'WC1',g:'WC',x:cx-45, y:backY+30},
+        {id:'WC2',g:'WC',x:cx-15, y:backY+30},
+        {id:'WC3',g:'WC',x:cx+15, y:backY+30},
+        {id:'WC4',g:'WC',x:cx+45, y:backY+30},
+        // Men Back — shifted upper-right (2x2 grid) so WC owns the back center
+        {id:'MB1',g:'MB',x:cx+120, y:backY-30},
+        {id:'MB2',g:'MB',x:cx+155, y:backY-30},
+        {id:'MB3',g:'MB',x:cx+120, y:backY+5},
+        {id:'MB4',g:'MB',x:cx+155, y:backY+5},
+        // Men in Couple — stage right, vertical line
+        {id:'MC1',g:'MC',x:stageX+stageW-55, y:backY+70},
+        {id:'MC2',g:'MC',x:stageX+stageW-55, y:backY+115},
+        {id:'MC3',g:'MC',x:stageX+stageW-55, y:backY+160},
+        {id:'MC4',g:'MC',x:stageX+stageW-55, y:backY+205},
+        // Men Left — stage left, vertical line
+        {id:'ML1',g:'ML',x:stageX+55, y:backY+70},
+        {id:'ML2',g:'ML',x:stageX+55, y:backY+115},
+        {id:'ML3',g:'ML',x:stageX+55, y:backY+160},
+        {id:'ML4',g:'ML',x:stageX+55, y:backY+205}
+      ]
+    },
+    { // STEP 1: Couples section — one continuous front row, alternating WC MC WC MC ...
+      desc: 'Couples section — WC moves downstage; MC joins them. One row of 8 alternating WC1 MC1 WC2 MC2 WC3 MC3 WC4 MC4.',
+      positions: (function(){
+        var y = frontY - 20;
+        // 8 evenly spaced positions: cx-210 to cx+210 in steps of 60
+        var xs = [-210,-150,-90,-30,30,90,150,210].map(function(d){return cx+d;});
+        return [
+          {id:'WC1',g:'WC',x:xs[0],y:y},
+          {id:'MC1',g:'MC',x:xs[1],y:y},
+          {id:'WC2',g:'WC',x:xs[2],y:y},
+          {id:'MC2',g:'MC',x:xs[3],y:y},
+          {id:'WC3',g:'WC',x:xs[4],y:y},
+          {id:'MC3',g:'MC',x:xs[5],y:y},
+          {id:'WC4',g:'WC',x:xs[6],y:y},
+          {id:'MC4',g:'MC',x:xs[7],y:y},
+          // MB holds at top right
+          {id:'MB1',g:'MB',x:cx+120, y:backY-30},
+          {id:'MB2',g:'MB',x:cx+155, y:backY-30},
+          {id:'MB3',g:'MB',x:cx+120, y:backY+5},
+          {id:'MB4',g:'MB',x:cx+155, y:backY+5},
+          // ML holds at stage left
+          {id:'ML1',g:'ML',x:stageX+55, y:backY+70},
+          {id:'ML2',g:'ML',x:stageX+55, y:backY+115},
+          {id:'ML3',g:'ML',x:stageX+55, y:backY+160},
+          {id:'ML4',g:'ML',x:stageX+55, y:backY+205}
+        ];
+      })()
+    },
+    { // STEP 2: Split — couples mirror each other on opposite sides; ML moves to front-left
+      desc: 'Split — couples retreat to stage left & right mirrored (WC upstage, MC downstage-angled). ML moves to front-left to await MB.',
       positions: [
-        {id:'W1',g:'W',x:cx-60,y:botY-20},{id:'W2',g:'W',x:cx-20,y:botY-20},
-        {id:'W3',g:'W',x:cx+20,y:botY-20},{id:'W4',g:'W',x:cx+60,y:botY-20},
-        {id:'MB1',g:'MB',x:cx-45,y:topY+qH*0.5},{id:'MB2',g:'MB',x:cx-15,y:topY+qH*0.5},
-        {id:'MB3',g:'MB',x:cx+15,y:topY+qH*0.5},{id:'MB4',g:'MB',x:cx+45,y:topY+qH*0.5},
-        {id:'MC1',g:'MC',x:cx-60,y:botY-55},{id:'MC2',g:'MC',x:cx-20,y:botY-55},
-        {id:'MC3',g:'MC',x:cx+20,y:botY-55},{id:'MC4',g:'MC',x:cx+60,y:botY-55},
-        {id:'MS1',g:'MS',x:stageX+60,y:topY+qH*1.0},{id:'MS2',g:'MS',x:stageX+60,y:topY+qH*1.6},
-        {id:'MS3',g:'MS',x:stageX+60,y:topY+qH*2.2},{id:'MS4',g:'MS',x:stageX+60,y:topY+qH*2.8}
-      ] },
-    { desc: 'Split — 2 couples retreat left-back, 2 couples retreat right-back, clearing center stage.',
+        // Left side: WC1/MC1 and WC2/MC2 — WC upstage, MC slightly downstage (angled to face audience)
+        {id:'WC1',g:'WC',x:stageX+110, y:backY+55},
+        {id:'MC1',g:'MC',x:stageX+150, y:backY+95},
+        {id:'WC2',g:'WC',x:stageX+110, y:backY+125},
+        {id:'MC2',g:'MC',x:stageX+150, y:backY+165},
+        // Right side: mirror — WC upstage, MC slightly downstage
+        {id:'WC3',g:'WC',x:stageX+stageW-110, y:backY+55},
+        {id:'MC3',g:'MC',x:stageX+stageW-150, y:backY+95},
+        {id:'WC4',g:'WC',x:stageX+stageW-110, y:backY+125},
+        {id:'MC4',g:'MC',x:stageX+stageW-150, y:backY+165},
+        // MB holds at top right
+        {id:'MB1',g:'MB',x:cx+120, y:backY-30},
+        {id:'MB2',g:'MB',x:cx+155, y:backY-30},
+        {id:'MB3',g:'MB',x:cx+120, y:backY+5},
+        {id:'MB4',g:'MB',x:cx+155, y:backY+5},
+        // ML moves to front-left (2x2 near bottom-left)
+        {id:'ML1',g:'ML',x:stageX+75,  y:frontY-45},
+        {id:'ML2',g:'ML',x:stageX+115, y:frontY-45},
+        {id:'ML3',g:'ML',x:stageX+75,  y:frontY-10},
+        {id:'ML4',g:'ML',x:stageX+115, y:frontY-10}
+      ]
+    },
+    { // STEP 3: Men's section — MB + ML alternate in two rows of 4 (same structure as couples)
+      desc: "Men's section — MB comes down center and pairs with ML. Two rows of 4 alternating MB/ML; couples hold on sidelines.",
       positions: [
-        {id:'W1',g:'W',x:stageX+80,y:topY+qH*2.0},{id:'W2',g:'W',x:stageX+80,y:topY+qH*2.8},
-        {id:'W3',g:'W',x:stageX+stageW-80,y:topY+qH*2.0},{id:'W4',g:'W',x:stageX+stageW-80,y:topY+qH*2.8},
-        {id:'MB1',g:'MB',x:cx-45,y:topY+qH*0.5},{id:'MB2',g:'MB',x:cx-15,y:topY+qH*0.5},
-        {id:'MB3',g:'MB',x:cx+15,y:topY+qH*0.5},{id:'MB4',g:'MB',x:cx+45,y:topY+qH*0.5},
-        {id:'MC1',g:'MC',x:stageX+120,y:topY+qH*1.4},{id:'MC2',g:'MC',x:stageX+120,y:topY+qH*2.2},
-        {id:'MC3',g:'MC',x:stageX+stageW-120,y:topY+qH*1.4},{id:'MC4',g:'MC',x:stageX+stageW-120,y:topY+qH*2.2},
-        {id:'MS1',g:'MS',x:stageX+60,y:topY+qH*1.0},{id:'MS2',g:'MS',x:stageX+60,y:topY+qH*1.6},
-        {id:'MS3',g:'MS',x:stageX+60,y:topY+qH*2.2},{id:'MS4',g:'MS',x:stageX+60,y:topY+qH*2.8}
-      ] },
-    { desc: "Men's section — MB comes downstage and pairs with MS center-left. Couples hold on the sides.",
-      positions: [
-        {id:'W1',g:'W',x:stageX+80,y:topY+qH*2.0},{id:'W2',g:'W',x:stageX+80,y:topY+qH*2.8},
-        {id:'W3',g:'W',x:stageX+stageW-80,y:topY+qH*2.0},{id:'W4',g:'W',x:stageX+stageW-80,y:topY+qH*2.8},
-        {id:'MB1',g:'MB',x:cx-80,y:topY+qH*1.4},{id:'MB2',g:'MB',x:cx-40,y:topY+qH*1.4},
-        {id:'MB3',g:'MB',x:cx-80,y:topY+qH*2.2},{id:'MB4',g:'MB',x:cx-40,y:topY+qH*2.2},
-        {id:'MC1',g:'MC',x:stageX+120,y:topY+qH*1.4},{id:'MC2',g:'MC',x:stageX+120,y:topY+qH*2.2},
-        {id:'MC3',g:'MC',x:stageX+stageW-120,y:topY+qH*1.4},{id:'MC4',g:'MC',x:stageX+stageW-120,y:topY+qH*2.2},
-        {id:'MS1',g:'MS',x:cx-80,y:topY+qH*0.6},{id:'MS2',g:'MS',x:cx-40,y:topY+qH*0.6},
-        {id:'MS3',g:'MS',x:cx-80,y:topY+qH*3.0},{id:'MS4',g:'MS',x:cx-40,y:topY+qH*3.0}
-      ] },
-    { desc: 'Finale — all 16 join into two rows of 8 across the full stage.',
-      positions: [
-        {id:'W1',g:'W',x:cx-210,y:botY-20},{id:'W2',g:'W',x:cx-150,y:botY-20},
-        {id:'W3',g:'W',x:cx-90,y:botY-20},{id:'W4',g:'W',x:cx-30,y:botY-20},
-        {id:'MB1',g:'MB',x:cx+30,y:botY-20},{id:'MB2',g:'MB',x:cx+90,y:botY-20},
-        {id:'MB3',g:'MB',x:cx+150,y:botY-20},{id:'MB4',g:'MB',x:cx+210,y:botY-20},
-        {id:'MC1',g:'MC',x:cx-210,y:botY-65},{id:'MC2',g:'MC',x:cx-150,y:botY-65},
-        {id:'MC3',g:'MC',x:cx-90,y:botY-65},{id:'MC4',g:'MC',x:cx-30,y:botY-65},
-        {id:'MS1',g:'MS',x:cx+30,y:botY-65},{id:'MS2',g:'MS',x:cx+90,y:botY-65},
-        {id:'MS3',g:'MS',x:cx+150,y:botY-65},{id:'MS4',g:'MS',x:cx+210,y:botY-65}
-      ] }
+        // Couples hold on sidelines (same as split)
+        {id:'WC1',g:'WC',x:stageX+110, y:backY+55},
+        {id:'MC1',g:'MC',x:stageX+150, y:backY+95},
+        {id:'WC2',g:'WC',x:stageX+110, y:backY+125},
+        {id:'MC2',g:'MC',x:stageX+150, y:backY+165},
+        {id:'WC3',g:'WC',x:stageX+stageW-110, y:backY+55},
+        {id:'MC3',g:'MC',x:stageX+stageW-150, y:backY+95},
+        {id:'WC4',g:'WC',x:stageX+stageW-110, y:backY+125},
+        {id:'MC4',g:'MC',x:stageX+stageW-150, y:backY+165},
+        // MB + ML alternating, two rows of 4 center-stage
+        // Back row (y smaller): MB3 ML3 MB4 ML4
+        {id:'MB3',g:'MB',x:cx-75, y:backY+95},
+        {id:'ML3',g:'ML',x:cx-25, y:backY+95},
+        {id:'MB4',g:'MB',x:cx+25, y:backY+95},
+        {id:'ML4',g:'ML',x:cx+75, y:backY+95},
+        // Front row (y larger): MB1 ML1 MB2 ML2
+        {id:'MB1',g:'MB',x:cx-75, y:backY+155},
+        {id:'ML1',g:'ML',x:cx-25, y:backY+155},
+        {id:'MB2',g:'MB',x:cx+25, y:backY+155},
+        {id:'ML2',g:'ML',x:cx+75, y:backY+155}
+      ]
+    },
+    { // STEP 4: Finale — pure zig-zag across the full stage, alternating front/back
+      desc: 'Finale — pure zig-zag, 16 dots evenly spaced L→R, alternating front (bottom) and back (top).',
+      positions: (function(){
+        // Order: WC1 MC1 WC2 MC2 MB1 ML1 MB2 ML2 MB3 ML3 MB4 ML4 WC3 MC3 WC4 MC4
+        var order = [
+          {id:'WC1',g:'WC'},{id:'MC1',g:'MC'},{id:'WC2',g:'WC'},{id:'MC2',g:'MC'},
+          {id:'MB1',g:'MB'},{id:'ML1',g:'ML'},{id:'MB2',g:'MB'},{id:'ML2',g:'ML'},
+          {id:'MB3',g:'MB'},{id:'ML3',g:'ML'},{id:'MB4',g:'MB'},{id:'ML4',g:'ML'},
+          {id:'WC3',g:'WC'},{id:'MC3',g:'MC'},{id:'WC4',g:'WC'},{id:'MC4',g:'MC'}
+        ];
+        // 16 evenly spaced x from cx-225 to cx+225 in steps of 30
+        var front = frontY - 25; // bottom row
+        var back  = frontY - 80; // top row (just slightly upstage of front)
+        return order.map(function(p,i){
+          return { id:p.id, g:p.g,
+            x: cx - 225 + i*30,
+            y: (i % 2 === 0) ? front : back
+          };
+        });
+      })()
+    }
   ];
 
   var SVG_NS = 'http://www.w3.org/2000/svg';
@@ -146,7 +227,7 @@
       var grp = document.createElementNS(SVG_NS,'g');
       var c = colors[p.g];
       var circle = document.createElementNS(SVG_NS,'circle');
-      circle.setAttribute('r','14');
+      circle.setAttribute('r','15');
       circle.setAttribute('fill', c.fill);
       circle.setAttribute('stroke', c.stroke);
       circle.setAttribute('stroke-width','1.2');
@@ -177,23 +258,22 @@
       var a = fromPos[id], b = toPos[id];
       if (!a || !b) return;
       var dx = b.x - a.x, dy = b.y - a.y;
-      if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return;
+      if (Math.abs(dx) < 2 && Math.abs(dy) < 2) return;
       var len = Math.sqrt(dx*dx + dy*dy);
-      // shorten so arrow head doesn't overlap dot
-      var pad = 16;
+      var pad = 17;
+      if (len <= pad*2 + 4) return;
       var ux = dx/len, uy = dy/len;
       var x1 = a.x + ux*pad, y1 = a.y + uy*pad;
       var x2 = b.x - ux*pad, y2 = b.y - uy*pad;
-      // curved path for aesthetics
       var mx = (x1+x2)/2, my = (y1+y2)/2;
-      var nx = -uy, ny = ux; // perpendicular
-      var bow = Math.min(30, len*0.15);
+      var nx = -uy, ny = ux;
+      var bow = Math.min(25, len*0.12);
       var path = document.createElementNS(SVG_NS,'path');
       path.setAttribute('d','M '+x1+' '+y1+' Q '+(mx+nx*bow)+' '+(my+ny*bow)+' '+x2+' '+y2);
       path.setAttribute('fill','none');
       path.setAttribute('stroke', colors[b.g].stroke);
       path.setAttribute('stroke-width','1.5');
-      path.setAttribute('stroke-opacity','0.55');
+      path.setAttribute('stroke-opacity','0.5');
       path.setAttribute('stroke-dasharray','4 3');
       path.setAttribute('marker-end','url(#arrow)');
       trails.appendChild(path);
@@ -209,8 +289,8 @@
       var to = targets[id];
       if (!to) return;
       var start = performance.now();
-      var dur = 650;
-      (function run(id, from, to){
+      var dur = 700;
+      (function(id, from, to, start){
         function tick(now){
           var t = Math.min((now - start)/dur, 1);
           var ease = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
@@ -221,7 +301,7 @@
           else { dotEls[id].x = to.x; dotEls[id].y = to.y; }
         }
         animReqs[id] = requestAnimationFrame(tick);
-      })(id, from, to);
+      })(id, from, to, start);
     });
     document.getElementById('step-desc').textContent = steps[stepIdx].desc;
     var pills = document.querySelectorAll('.pill');
